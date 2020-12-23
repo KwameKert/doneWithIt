@@ -8,8 +8,11 @@ function ListDetailsScreen({route}) {
     return (
         <View>
              <Image style={styles.imageHolder} source={{uri:listing.link}} /> 
+             <View style={styles.details}>
             <Text style={styles.header}>{listing.name}</Text>
             <Text style={styles.price}>${listing.price}</Text>
+
+             </View>
             <ListItem  
             image={require("../../assets/mosh.jpg")}
             title="Kwame Asante"
@@ -28,6 +31,9 @@ const styles = StyleSheet.create({
             fontSize: 23,
             fontWeight: "500",
             marginBottom: 5      
+        },
+        details:{
+            paddingHorizontal:10
         },
         price: {
             color: colors.secondary,

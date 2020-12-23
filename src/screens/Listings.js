@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
+import AppButton from '../components/AppButton';
 import listingsApi from "../api/listings";
 import Colors from "../config/colors";
 import Screen from "../components/Screen";
 import Card from "./Card";
+import AppText from "../components/AppText";
 
 
 function Listings({ navigation }) {
   const [listings, setListings] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading]  = useState(false)
 
   useEffect(() => {
     loadListings();
   }, []);
 
   const loadListings = async () => {
+    setLoading(true)
     const response = await listingsApi.fetchListings();
-    // console.log(response.data)
-    setListings(response.data);
+    setLoading(false)
+    if(!response.ok) return setError(true);
+    
+    setError(false)
+    return setListings(response.data);
   };
-
   return (
     <Screen style={styles.container}>
+      {error && <>
+        <AppText >Opps. Couldnt retriee the listings</AppText>
+        <AppButton onPress={loadListings} title="Retry"></AppButton>
+      </>}
+    {loading &&  <ActivityIndicator size="large" color="#0000ff"  /> }
+     
       <FlatList
         showsVerticalScrollIndicator={false}
         data={listings}
