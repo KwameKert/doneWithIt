@@ -7,11 +7,10 @@ function ListDetailsScreen({route}) {
     const listing = route.params
     return (
         <View>
-             <Image style={styles.imageHolder} source={{uri:listing.link}} /> 
+             <Image style={styles.imageHolder} source={{uri:listing.images[0].url}} /> 
              <View style={styles.details}>
             <Text style={styles.header}>{listing.name}</Text>
             <Text style={styles.price}>${listing.price}</Text>
-
              </View>
             <ListItem  
             image={require("../../assets/mosh.jpg")}

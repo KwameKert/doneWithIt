@@ -29,7 +29,7 @@ function Listings({ navigation }) {
   return (
     <Screen style={styles.container}>
       {error && <>
-        <AppText >Opps. Couldnt retriee the listings</AppText>
+        <AppText >Opps. Couldnt fetch  listings</AppText>
         <AppButton onPress={loadListings} title="Retry"></AppButton>
       </>}
     {loading &&  <ActivityIndicator size="large" color="#0000ff"  /> }
@@ -37,11 +37,11 @@ function Listings({ navigation }) {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={listings}
-        keyExtractor={(listing) => listing.name}
+        keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item }) => (
           <Card
             title={item.name}
-            imageUrl={item.link}
+            imageUrl={item.images[0].url}
             subTitle={"$" + item.price}
             onPress={() =>{ 
              
